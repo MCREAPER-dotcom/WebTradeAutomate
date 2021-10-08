@@ -51,27 +51,18 @@
 
 #automateitem {
     position: absolute;
-    border: 2px solid #000000;
     width: 300px;
-    height: auto;
 }
 
 #automatebuttontable2 {
     position: absolute;
-    top: 30px;
     left: 20px;
 }
 
-#automatebuttontr2 {
-    border: 2px solid #000000;
-}
 
 #automatebuttontd2 {
     text-align: center;
-    padding: 0px;
-    padding-bottom: 0px;
-    width: 60px;
-    height: 110px;
+    width: 58px;
 }
 
 #coin1 {
@@ -119,3 +110,6 @@
     color: #bbbbbb;
 }
 
+#textitem{
+    font-size:75%;
+}
