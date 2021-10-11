@@ -56,14 +56,27 @@
 
 #automatebuttontable2 {
     position: absolute;
-    left: 20px;
+    left: 30px;
+    top: 35px;
 }
 
+#automatebuttontr2 {
+    top: 35px;
+}
 
 #automatebuttontd2 {
     text-align: center;
-    width: 58px;
+    width: 55px;
 }
+
+#buttonautomateitem {
+    color: #bbbbbb;
+}
+
+#textitem{
+    font-size:75%;
+}
+
 
 #coin1 {
     background-image: url(1.png);
@@ -104,12 +117,4 @@
     position: absolute;
     width: 50px;
     height: 50px;
-}
-
-#buttonautomateitem {
-    color: #bbbbbb;
-}
-
-#textitem{
-    font-size:75%;
 }
