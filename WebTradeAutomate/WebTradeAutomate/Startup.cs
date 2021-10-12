@@ -10,10 +10,15 @@ namespace WebTradeAutomate
       public void ConfigureServices(IServiceCollection services)
       {
          string con = "Server=(localdb)\\mssqllocaldb;" +
-            "Database=itemsdbstore;" +
+            "Database=itemsdatabase;" +
             "Trusted_Connection=True;";
          // устанавливаем контекст данных
          services.AddDbContext<ItemsContext>(options => options.UseSqlServer(con));
+         string coin = "Server=(localdb)\\mssqllocaldb;" +
+            "Database=coinsdatabase;" +
+            "Trusted_Connection=True;";
+         // устанавливаем контекст данных
+         services.AddDbContext<CoinsContext>(options => options.UseSqlServer(coin));
          services.AddControllers(); // используем контроллеры без представлений
       }
 

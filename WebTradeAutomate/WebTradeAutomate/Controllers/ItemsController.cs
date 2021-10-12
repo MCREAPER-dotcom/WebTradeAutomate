@@ -18,8 +18,8 @@ namespace WebTradeAutomate.Controllers
          db = context;
          if (!db.Items.Any())
          {
-            db.Items.Add(new Item { Name = "water", cost=20,quantity=15 });
-            db.Items.Add(new Item { Name = "icetee", cost=50,quantity=17 });
+            db.Items.Add(new Item { Name = "water", Code = 152, cost=20,quantity=15 });
+            db.Items.Add(new Item { Name = "icetee", Code = 561, cost=50,quantity=17 });
             db.SaveChanges();
          }
       }

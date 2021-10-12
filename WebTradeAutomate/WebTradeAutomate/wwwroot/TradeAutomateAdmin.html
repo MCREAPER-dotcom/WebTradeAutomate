@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Список товаров</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="TradeAutomate.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <h2>Список товаров</h2>
@@ -14,6 +15,10 @@
         <div class="form-group col-md-5">
             <label for="name">Название:</label>
             <input class="form-control" name="name" />
+        </div>
+        <div class="form-group col-md-5">
+            <label for="code">Код Напитка:</label>
+            <input class="form-control" name="code" type="number" />
         </div>
         <div class="form-group col-md-5">
             <label for="cost">стоимость:</label>
@@ -28,8 +33,22 @@
             <a id="reset" class="btn btn-primary">Сбросить</a>
         </div>
     </form>
+
+    <div>
+        <button id="coin1" class="automatecoin1"><p></p></button>
+    </div>
+    <div>
+        <button id="coin2" class="automatecoin2"><p></p></button>
+    </div>
+    <div>
+        <button id="coin3" class="automatecoin3"><p></p></button>
+    </div>
+    <div>
+        <button id="coin4" class="automatecoin4"><p></p></button>
+    </div>
+
     <table class="table table-condensed table-striped  col-md-6">
-        <thead><tr><th>Id</th><th>Название</th><th>Стоимость</th><th>Количество</th><th></th></tr></thead>
+        <thead><tr><th>Id</th><th>Название</th><th>Код Напитка</th><th>Стоимость</th><th>Количество</th><th></th></tr></thead>
         <tbody class="tbody1">
         </tbody>
     </table>
@@ -53,67 +72,70 @@
             }
         }
         // Получение одного пользователя
-            async function GetItem(id) {
-                const response = await fetch("/api/items/" + id, {
-                    method: "GET",
-                    headers: { "Accept": "application/json" }
-                });
-                if (response.ok === true) {
-                    const item = await response.json();
-                    const form = document.forms["itemsForm"];
-                    form.elements["id"].value = item.id;
-                    form.elements["name"].value = item.name;
-                    form.elements["cost"].value = item.cost;
-                    form.elements["quantity"].value = item.quantity;
-                }
+        async function GetItem(id) {
+            const response = await fetch("/api/items/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                const form = document.forms["itemsForm"];
+                form.elements["id"].value = item.id;
+                form.elements["name"].value = item.name;
+                form.elements["code"].value = item.code;
+                form.elements["cost"].value = item.cost;
+                form.elements["quantity"].value = item.quantity;
             }
+        }
         // Добавление пользователя
-            async function CreateItem(itemName, itemCost,itemQuantity) {
+        async function CreateItem(itemName, itemCode, itemCost, itemQuantity) {
 
-                const response = await fetch("api/items", {
-                    method: "POST",
-                    headers: { "Accept": "application/json", "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        name: itemName,
-                        cost: parseInt(itemCost, 10),
-                        quantity: parseInt(itemQuantity, 10)
-                    })
-                });
-                if (response.ok === true) {
-                    const item = await response.json();
-                    reset();
-                    document.querySelector('.tbody1').append(row(item));
-                }
+            const response = await fetch("api/items", {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: itemName,
+                    code: parseInt(itemCode, 10),
+                    cost: parseInt(itemCost, 10),
+                    quantity: parseInt(itemQuantity, 10)
+                })
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                reset();
+                document.querySelector('.tbody1').append(row(item));
             }
+        }
         // Изменение пользователя
-            async function EditItem(itemId, itemName, itemCost,itemQuantity) {
-                const response = await fetch("api/items", {
-                    method: "PUT",
-                    headers: { "Accept": "application/json", "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        id: parseInt(itemId, 10),
-                        name: itemName,
-                        cost: parseInt(itemCost, 10),
-                        quantity: parseInt(itemQuantity, 10)
-                    })
-                });
-                if (response.ok === true) {
-                    const item = await response.json();
-                    reset();
-                    document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
-                }
+        async function EditItem(itemId, itemName, itemCode, itemCost, itemQuantity) {
+            const response = await fetch("api/items", {
+                method: "PUT",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: parseInt(itemId, 10),
+                    name: itemName,
+                    code: parseInt(itemCode, 10),
+                    cost: parseInt(itemCost, 10),
+                    quantity: parseInt(itemQuantity, 10)
+                })
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                reset();
+                document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
             }
+        }
         // Удаление пользователя
-            async function DeleteItem(id) {
-                const response = await fetch("/api/items/" + id, {
-                    method: "DELETE",
-                    headers: { "Accept": "application/json" }
-                });
-                if (response.ok === true) {
-                    const item = await response.json();
-                    document.querySelector("tr[data-rowid='" + item.id + "']").remove();
-                }
+        async function DeleteItem(id) {
+            const response = await fetch("/api/items/" + id, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                document.querySelector("tr[data-rowid='" + item.id + "']").remove();
             }
+        }
 
         // сброс формы
         function reset() {
@@ -135,6 +157,10 @@
             nameTd.append(item.name);
             tr.append(nameTd);
 
+            const codeTd = document.createElement("td");
+            codeTd.append(item.code);
+            tr.append(codeTd);
+
             const costTd = document.createElement("td");
             costTd.append(item.cost);
             tr.append(costTd);
@@ -152,7 +178,7 @@
             editLink.addEventListener("click", e => {
 
                 e.preventDefault();
-                Getitem(item.id);
+                GetItem(item.id);
             });
             linksTd.append(editLink);
 
@@ -179,18 +205,19 @@
         })
 
         // отправка формы
-            document.forms["itemsForm"].addEventListener("submit", e => {
-                e.preventDefault();
-                const form = document.forms["itemsForm"];
-                const id = form.elements["id"].value;
-                const name = form.elements["name"].value;
-                const cost = form.elements["cost"].value;
-                const quantity = form.elements["quantity"].value;
-                if (id == 0)
-                    CreateItem(name, cost,quantity);
-                else
-                    EditItem(id, name, cost, quantity);
-            });
+        document.forms["itemsForm"].addEventListener("submit", e => {
+            e.preventDefault();
+            const form = document.forms["itemsForm"];
+            const id = form.elements["id"].value;
+            const name = form.elements["name"].value;
+            const code = form.elements["code"].value;
+            const cost = form.elements["cost"].value;
+            const quantity = form.elements["quantity"].value;
+            if (id == 0)
+                CreateItem(name, code, cost, quantity);
+            else
+                EditItem(id, name, code, cost, quantity);
+        });
 
         // загрузка пользователей
         GetItems();
