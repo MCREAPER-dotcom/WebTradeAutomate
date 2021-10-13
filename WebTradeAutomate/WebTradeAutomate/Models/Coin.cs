@@ -10,5 +10,6 @@ namespace WebTradeAutomate.Models
       public int Id { get; set; }
       public string Name { get; set; }
       public int Cost { get; set; }
+      public bool IsUsed { get; set; }
    }
 }

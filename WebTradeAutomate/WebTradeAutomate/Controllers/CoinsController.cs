@@ -18,10 +18,10 @@ namespace WebTradeAutomate.Controllers
          db = context;
          if (!db.Coins.Any())
          {
-            db.Coins.Add(new Coin { Name = "1",Cost=1});
-            db.Coins.Add(new Coin { Name = "2", Cost = 2 });
-            db.Coins.Add(new Coin { Name = "5", Cost = 5 });
-            db.Coins.Add(new Coin { Name = "10", Cost = 10 });
+            db.Coins.Add(new Coin { Name = "1", Cost = 1, IsUsed = true});
+            db.Coins.Add(new Coin { Name = "2", Cost = 2, IsUsed = true});
+            db.Coins.Add(new Coin { Name = "5", Cost = 5, IsUsed = true});
+            db.Coins.Add(new Coin { Name = "10", Cost = 10, IsUsed = true});
             db.SaveChanges();
          }
       }

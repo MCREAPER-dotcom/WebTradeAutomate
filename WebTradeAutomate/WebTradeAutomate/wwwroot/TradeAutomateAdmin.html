@@ -34,18 +34,28 @@
         </div>
     </form>
 
-    <div>
-        <button id="coin1" class="automatecoin1"><p></p></button>
-    </div>
-    <div>
-        <button id="coin2" class="automatecoin2"><p></p></button>
-    </div>
-    <div>
-        <button id="coin3" class="automatecoin3"><p></p></button>
-    </div>
-    <div>
-        <button id="coin4" class="automatecoin4"><p></p></button>
-    </div>
+    <table class="coinTable">
+        <tr>
+            <th id="coin1">
+                <button class="automatecoin1"><img src="1.png"></button>
+            </th>
+        </tr>
+        <tr>
+            <th id="coin2">
+                <button class="automatecoin2"><img src="2.png"></button>
+            </th>
+        </tr>
+        <tr>
+            <th id="coin3">
+                <button class="automatecoin3"><img src="5.png"></button>
+            </th>
+        </tr>
+        <tr>
+            <th id="coin4">
+                <button class="automatecoin4"><img src="10.png"></button>
+            </th>
+        </tr>
+    </table>
 
     <table class="table table-condensed table-striped  col-md-6">
         <thead><tr><th>Id</th><th>Название</th><th>Код Напитка</th><th>Стоимость</th><th>Количество</th><th></th></tr></thead>
@@ -53,6 +63,115 @@
         </tbody>
     </table>
     <script>
+
+        const automatecoin1 = document.querySelector('.automatecoin1');
+        const automatecoin2 = document.querySelector('.automatecoin2');
+        const automatecoin3 = document.querySelector('.automatecoin3');
+        const automatecoin4 = document.querySelector('.automatecoin4');
+        automatecoin1.onclick = function () {
+            Checkbutton();
+        }
+        automatecoin2.onclick = function () {
+            Checkbutton();
+        }
+        automatecoin3.onclick = function () {
+            Checkbutton();
+        }
+        automatecoin4.onclick = function () {
+            Checkbutton();
+        }
+        function Checkbutton() {
+
+            const response = await fetch("api/coins", {
+                method: "PUT",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: parseInt(coinId, 10),
+                    name: coinName,
+                    cost: parseInt(coinCost, 10),
+                    isused: Boolean(coinisused)
+                })
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
+            }
+        }
+
+        async function GetCoins() {
+            // отправляет запрос и получаем ответ
+            const response1 = await fetch("/api/coins", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            // если запрос прошел нормально
+            if (response1.ok === true) {
+                // получаем данные
+                const coins = await response1.json();
+                coins.forEach(coin => {
+                    rowcoins(coin);
+                });
+            }
+        }
+        // Получение одного пользователя
+        async function GetCoins(id) {
+            const response = await fetch("/api/coins/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const coin = await response.json();
+                
+            }
+        }
+        function rowcoins(coin) {
+
+            if (coin.name === '1') {
+
+                if (coin.isused === true) {
+                    automatecoin1.remove();
+                    coin1.insertAdjacentHTML("afterbegin", '<button class="automatecoin1"><img src="1.png"></button>');
+                }
+                if (coin.isused === false) {
+                    automatecoin1.remove();
+                    coin1.insertAdjacentHTML("afterbegin", '<button class="automatecoin1"><img src="1b.png"></button>');
+                }
+            }
+            if (coin.name === '2') {
+
+                if (coin.isused === true) {
+                    automatecoin2.remove();
+                    coin2.insertAdjacentHTML("afterbegin", '<button class="automatecoin2"><img src="2.png"></button>');
+                }
+                if (coin.isused === false) {
+                    automatecoin2.remove();
+                    coin2.insertAdjacentHTML("afterbegin", '<button class="automatecoin2"><img src="2b.png"></button>');
+                }
+            }
+            if (coin.name === '5') {
+
+                if (coin.isused === true) {
+                    automatecoin3.remove();
+                    coin3.insertAdjacentHTML("afterbegin", '<button class="automatecoin3"><img src="5.png"></button>');
+                }
+                if (coin.isused === false) {
+                    automatecoin3.remove();
+                    coin3.insertAdjacentHTML("afterbegin", '<button class="automatecoin3"><img src="5b.png"></button>');
+                }
+            }
+            if (coin.name === '10') {
+                if (coin.isused === true) {
+                    automatecoin4.remove();
+                    coin4.insertAdjacentHTML("afterbegin", '<button class="automatecoin4"><img src="10.png"></button>');
+                }
+                if (coin.isused === false) {
+                    automatecoin4.remove();
+                    coin4.insertAdjacentHTML("afterbegin", '<button class="automatecoin4"><img src="10b.png"></button>');
+                }
+            }
+
+            return tr;
+        }
         // Получение всех пользователей
         async function GetItems() {
             // отправляет запрос и получаем ответ

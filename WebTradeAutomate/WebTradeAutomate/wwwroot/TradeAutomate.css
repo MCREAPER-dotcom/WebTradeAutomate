@@ -79,7 +79,6 @@
 
 
 #coin1 {
-    background-image: url(1.png);
     left: 750px;
     position: absolute;
     width: 160px;
@@ -87,7 +86,6 @@
 }
 
 #coin2 {
-    background-image: url(2.png);
     left: 950px;
     position: absolute;
     width: 160px;
@@ -95,7 +93,6 @@
 }
 
 #coin3 {
-    background-image: url(5.png);
     left: 750px;
     top: 200px;
     position: absolute;
@@ -104,7 +101,6 @@
 }
 
 #coin4 {
-    background-image: url(10.png);
     left: 950px;
     top: 200px;
     position: absolute;
