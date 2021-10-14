@@ -1,0 +1,369 @@
+﻿<!DOCTYpE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="TradeAutomate.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="automate">
+    </div>
+    <div id="automatext1">
+        <p>Товар:</p>
+    </div>
+    <div id="automatext4">
+        <p class="itemsName">000</p>
+    </div>
+    <div id="automatext2">
+        <p>Баланс:</p>
+    </div>
+    <div id="automatext3">
+        <p class="itemsCost">000</p>
+    </div>
+    <div id="automatebuttontable">
+        <table id="automatebutton">
+            <tr id="automatebuttontr">
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton1"><p>1</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton2"><p>2</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton3"><p>3</p></button></td>
+            </tr>
+            <tr id="automatebuttontr">
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton4"><p>4</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton5"><p>5</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton6"><p>6</p></button></td>
+            </tr>
+            <tr id="automatebuttontr">
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton7"><p>7</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton8"><p>8</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton9"><p>9</p></button></td>
+            </tr>
+            <tr id="automatebuttontr">
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebuttonC"><p>C</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebutton0"><p>0</p></button></td>
+                <td id="automatebuttontd"><button id="buttonautomateterminal" class="automatebuttonB"><p>B</p></button></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table id="automatebuttontable2" class="table table-condensed table-striped  col-md-6">
+            <thead><tr><th>Id</th><th>Название</th><th>Код Напитка</th><th>Стоимость</th><th>Количество</th><th></th></tr></thead>
+            <tbody class="tbody1">
+            </tbody>
+        </table>
+    </div>
+    <table class="coinTable">
+        <tr>
+            <th id="coin1">
+                <button class="automatecoin1">
+                    <img class="automatecoinimg1" src="1.png">
+                </button>
+            </th>
+        </tr>
+        <tr>
+            <th id="coin2">
+                <button class="automatecoin2">
+                    <img class="automatecoinimg2" src="2.png">
+                </button>
+            </th>
+        </tr>
+        <tr>
+            <th id="coin3">
+                <button class="automatecoin3">
+                    <img class="automatecoinimg3" src="5.png">
+                </button>
+            </th>
+        </tr>
+        <tr>
+            <th id="coin4">
+                <button class="automatecoin4">
+                    <img class="automatecoinimg4" src="10.png">
+                </button>
+            </th>
+        </tr>
+    </table>
+    <script>
+
+        GetCoins();
+        let coin1 = 0;
+        let coin2 = 0;
+        let coin3 = 0;
+        let coin4 = 0;
+
+        let itemsName = document.querySelector('.itemsName');
+        let itemsCost = document.querySelector('.itemsCost');
+        let Cost = 0;
+        function CheckName() {
+            itemsName.textContent = Number(itemsName.textContent);
+            if (Number(itemsName.textContent) > 999) {
+                itemsName.textContent = '000';
+            }
+        }
+        function CheckCost() {
+
+            itemsCost.textContent = Cost;
+            if (Number(itemsCost.textContent) > 999) {
+                itemsCost.textContent = '000';
+                Cost = 0;
+            }
+        }
+        document.querySelector('.automatecoin1').onclick = function () {
+            coin1 = coin1 + 1;
+            Cost = Cost + 1;
+            CheckCost();
+        }
+        document.querySelector('.automatecoin2').onclick = function () {
+            coin2 = coin2 + 1;
+            Cost = Cost + 2;
+            CheckCost();
+        }
+        document.querySelector('.automatecoin3').onclick = function () {
+            coin3 = coin3 + 1;
+            Cost = Cost + 5;
+            CheckCost();
+        }
+        document.querySelector('.automatecoin4').onclick = function () {
+            coin4 = coin4 + 1;
+            Cost = Cost + 10;
+            CheckCost();
+        }
+        document.querySelector('.automatebutton1').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '1';
+            CheckName();
+        }
+        document.querySelector('.automatebutton2').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '2';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton3').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '3';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton4').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '4';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton5').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '5';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton6').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '6';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton7').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '7';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton8').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '8';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton9').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '9';
+            CheckName();
+
+        }
+        document.querySelector('.automatebutton0').onclick = function () {
+            itemsName.textContent = itemsName.textContent + '0';
+            CheckName();
+
+        }
+        document.querySelector('.automatebuttonC').onclick = function () {
+            itemsName.textContent = '000';
+            alert("Сдача :" + "\n 10: " + coin4 + "\n 5: " + coin3 + "\n 2: " + coin2 + "\n 1: " + coin1);
+            coin1 = coin2 = coin3 = coin4 = 0;
+            Cost = 0;
+            itemsCost.textContent = '000';
+        }
+        document.querySelector('.automatebuttonB').onclick = function () {
+
+            buyitem();
+        }
+
+        async function buyitem() {
+            // отправляет запрос и получаем ответ
+            const response = await fetch("/api/items", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            // если запрос прошел нормально
+            if (response.ok === true) {
+                // получаем данные
+                const items = await response.json();
+                let rows = document.querySelector('.tbody1');
+                items.forEach(item => {
+                    // добавляем полученные элементы в таблицу
+                    if (parseInt(item.code, 10) === parseInt(itemsName.textContent, 10)) {
+                        if (parseInt(item.quantity, 10) >= 1) {
+                            if (parseInt(item.cost, 10) <= parseInt(Cost, 10) ) {
+                                EditItem(item.id, item.name, item.code, item.cost, item.quantity - 1);
+                                MathCoin(item.cost);
+                                Cost = Cost - item.cost;
+                                CheckCost();
+                            }
+                            else {
+                                alert("Ошибка : недостаточно денег");
+                            }
+                        }
+                        else {
+                            alert("Ошибка : недостаточно товара");
+                        }
+                    }
+                });
+            }
+        }
+
+        function MathCoin(itemCost) {
+            var temp = itemCost;
+            if (temp  >= 10) {
+                temp = itemCost % 10;
+                coin4 = coin4 - (itemCost - temp) / 10;
+
+            }
+            if (temp  >= 5) {
+                coin3 = coin3 - (temp - (temp % 5)) / 5;
+                temp = temp % 5;
+            }
+            if (temp  >= 2) {
+                coin2 = coin2 - (temp - (temp % 2)) / 2;
+                temp = temp % 2;
+            }
+            if (temp  >= 1) {
+                coin1 = coin1 - temp;
+            }
+        }
+
+        // Получение всех пользователей
+        async function GetItems() {
+            // отправляет запрос и получаем ответ
+            const response = await fetch("/api/items", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            // если запрос прошел нормально
+            if (response.ok === true) {
+                // получаем данные
+                const items = await response.json();
+                let rows = document.querySelector('.tbody1');
+                items.forEach(item => {
+                    // добавляем полученные элементы в таблицу
+                    rows.append(row(item));
+                });
+            }
+        }
+        async function GetCoins() {
+            // отправляет запрос и получаем ответ
+            const response1 = await fetch("/api/coins", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            // если запрос прошел нормально
+            if (response1.ok === true) {
+                // получаем данные
+                const coins = await response1.json();
+                coins.forEach(coin => {
+                    coinchange(coin);
+                });
+            }
+        }
+        function coinchange(coin) {
+            if (coin.name === '1') {
+                if (coin.isUsed === true) {
+                    document.querySelector('.automatecoinimg1').src = '1.png';
+                    document.querySelector('.automatecoin1').disabled = false;
+                } else {
+                    document.querySelector('.automatecoinimg1').src = '1b.png';
+                    document.querySelector('.automatecoin1').disabled = true;
+                }
+            }
+            if (coin.name === '2') {
+                if (coin.isUsed === true) {
+                    document.querySelector('.automatecoinimg2').src = '2.png';
+                    document.querySelector('.automatecoin2').disabled = false;
+                } else {
+                    document.querySelector('.automatecoinimg2').src = '2b.png';
+                    document.querySelector('.automatecoin2').disabled = true;
+                }
+            }
+            if (coin.name === '5') {
+                if (coin.isUsed === true) {
+                    document.querySelector('.automatecoinimg3').src = '5.png';
+                    document.querySelector('.automatecoin3').disabled = false;
+                } else {
+                    document.querySelector('.automatecoinimg3').src = '5b.png';
+                    document.querySelector('.automatecoin3').disabled = true;
+                }
+            }
+            if (coin.name === '10') {
+                if (coin.isUsed === true) {
+                    document.querySelector('.automatecoinimg4').src = '10.png';
+                    document.querySelector('.automatecoin4').disabled = false;
+                } else {
+                    document.querySelector('.automatecoinimg4').src = '10b.png';
+                    document.querySelector('.automatecoin4').disabled = true;
+                }
+            }
+
+        }
+        // создание строки для таблицы
+        function row(item) {
+
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", item.id);
+
+            const idTd = document.createElement("td");
+            idTd.append(item.id);
+            tr.append(idTd);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(item.name);
+            tr.append(nameTd);
+
+            const codeTd = document.createElement("td");
+            codeTd.append(item.code);
+            tr.append(codeTd);
+
+            const costTd = document.createElement("td");
+            costTd.append(item.cost);
+            tr.append(costTd);
+
+            const quantityTd = document.createElement("td");
+            quantityTd.append(item.quantity);
+            tr.append(quantityTd);
+
+            const linksTd = document.createElement("td");
+
+            tr.appendChild(linksTd);
+
+            return tr;
+        }
+
+        async function EditItem(itemId, itemName, itemCode, itemCost, itemQuantity) {
+            const response = await fetch("api/items", {
+                method: "PUT",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: parseInt(itemId, 10),
+                    name: itemName,
+                    code: parseInt(itemCode, 10),
+                    cost: parseInt(itemCost, 10),
+                    quantity: parseInt(itemQuantity, 10)
+                })
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
+            }
+        }
+        // загрузка пользователей
+        GetItems();
+    </script>
+</body>
+</html>

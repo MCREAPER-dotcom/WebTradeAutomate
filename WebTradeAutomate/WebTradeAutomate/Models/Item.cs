@@ -17,7 +17,7 @@ namespace WebTradeAutomate.Models
       [Range(1, 100, ErrorMessage = "Стоимость должна быть в промежутке от 1 до 100")]
       [Required(ErrorMessage = "Укажите стоимость продукта")]
       public int cost { get; set; }
-      [Range(1, 20, ErrorMessage = "Количество напитков должно быть от 1 до 20")]
+      [Range(0, 20, ErrorMessage = "Количество напитков должно быть от 0 до 20")]
       [Required(ErrorMessage = "Укажите количество продукта")]
       public int quantity { get; set; }
    }

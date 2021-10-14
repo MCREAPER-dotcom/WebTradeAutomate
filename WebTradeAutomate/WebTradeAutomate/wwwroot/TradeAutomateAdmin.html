@@ -37,22 +37,30 @@
     <table class="coinTable">
         <tr>
             <th id="coin1">
-                <button class="automatecoin1"><img src="1.png"></button>
+                <button class="automatecoin1">
+                    <img class="automatecoinimg1" src="1.png">
+                </button>
             </th>
         </tr>
         <tr>
             <th id="coin2">
-                <button class="automatecoin2"><img src="2.png"></button>
+                <button class="automatecoin2">
+                    <img class="automatecoinimg2" src="2.png">
+                </button>
             </th>
         </tr>
         <tr>
             <th id="coin3">
-                <button class="automatecoin3"><img src="5.png"></button>
+                <button class="automatecoin3">
+                    <img class="automatecoinimg3" src="5.png">
+                </button>
             </th>
         </tr>
         <tr>
             <th id="coin4">
-                <button class="automatecoin4"><img src="10.png"></button>
+                <button class="automatecoin4">
+                    <img class="automatecoinimg4" src="10.png">
+                </button>
             </th>
         </tr>
     </table>
@@ -62,284 +70,283 @@
         <tbody class="tbody1">
         </tbody>
     </table>
-    <script>
+<script>
+    GetCoins();
+    let coin1 = true;
+    let coin2 = true;
+    let coin3 = true;
+    let coin4 = true;
+    document.querySelector('.automatecoin1').onclick = function () {
+        if (coin1 === true)
+            EditCoin(1, '1', 1, false);
+        else if (coin1 === false)
+            EditCoin(1, '1', 1, true);
 
-        const automatecoin1 = document.querySelector('.automatecoin1');
-        const automatecoin2 = document.querySelector('.automatecoin2');
-        const automatecoin3 = document.querySelector('.automatecoin3');
-        const automatecoin4 = document.querySelector('.automatecoin4');
-        automatecoin1.onclick = function () {
-            Checkbutton();
-        }
-        automatecoin2.onclick = function () {
-            Checkbutton();
-        }
-        automatecoin3.onclick = function () {
-            Checkbutton();
-        }
-        automatecoin4.onclick = function () {
-            Checkbutton();
-        }
-        function Checkbutton() {
+    }
+    document.querySelector('.automatecoin2').onclick = function () {
+        if (coin2 === true)
+            EditCoin(2, '2', 2, false);
+        else if (coin2 === false)
+            EditCoin(2, '2', 2, true);
 
-            const response = await fetch("api/coins", {
-                method: "PUT",
-                headers: { "Accept": "application/json", "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    id: parseInt(coinId, 10),
-                    name: coinName,
-                    cost: parseInt(coinCost, 10),
-                    isused: Boolean(coinisused)
-                })
+    }
+    document.querySelector('.automatecoin3').onclick = function () {
+        if (coin3 === true)
+            EditCoin(3, '5', 5, false);
+        else if (coin3 === false)
+            EditCoin(3, '5', 5, true);
+
+    }
+    document.querySelector('.automatecoin4').onclick = function () {
+        if (coin4 === true)
+            EditCoin(4, '10', 10, false);
+        else if (coin4 === true)
+            EditCoin(4, '10', 10, true);
+
+    }
+    
+    // Получение всех пользователей
+    async function GetCoins() {
+        // отправляет запрос и получаем ответ
+        const response = await fetch("/api/Coins", {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+        });
+        // если запрос прошел нормально
+        if (response.ok === true) {
+            // получаем данные
+            const coins = await response.json();
+            coins.forEach(coin => {
+                coinchange(coin);
             });
-            if (response.ok === true) {
-                const item = await response.json();
-                document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
-            }
         }
-
-        async function GetCoins() {
-            // отправляет запрос и получаем ответ
-            const response1 = await fetch("/api/coins", {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            // если запрос прошел нормально
-            if (response1.ok === true) {
-                // получаем данные
-                const coins = await response1.json();
-                coins.forEach(coin => {
-                    rowcoins(coin);
-                });
-            }
-        }
-        // Получение одного пользователя
-        async function GetCoins(id) {
-            const response = await fetch("/api/coins/" + id, {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-                const coin = await response.json();
-                
-            }
-        }
-        function rowcoins(coin) {
-
-            if (coin.name === '1') {
-
-                if (coin.isused === true) {
-                    automatecoin1.remove();
-                    coin1.insertAdjacentHTML("afterbegin", '<button class="automatecoin1"><img src="1.png"></button>');
-                }
-                if (coin.isused === false) {
-                    automatecoin1.remove();
-                    coin1.insertAdjacentHTML("afterbegin", '<button class="automatecoin1"><img src="1b.png"></button>');
-                }
-            }
-            if (coin.name === '2') {
-
-                if (coin.isused === true) {
-                    automatecoin2.remove();
-                    coin2.insertAdjacentHTML("afterbegin", '<button class="automatecoin2"><img src="2.png"></button>');
-                }
-                if (coin.isused === false) {
-                    automatecoin2.remove();
-                    coin2.insertAdjacentHTML("afterbegin", '<button class="automatecoin2"><img src="2b.png"></button>');
-                }
-            }
-            if (coin.name === '5') {
-
-                if (coin.isused === true) {
-                    automatecoin3.remove();
-                    coin3.insertAdjacentHTML("afterbegin", '<button class="automatecoin3"><img src="5.png"></button>');
-                }
-                if (coin.isused === false) {
-                    automatecoin3.remove();
-                    coin3.insertAdjacentHTML("afterbegin", '<button class="automatecoin3"><img src="5b.png"></button>');
-                }
-            }
-            if (coin.name === '10') {
-                if (coin.isused === true) {
-                    automatecoin4.remove();
-                    coin4.insertAdjacentHTML("afterbegin", '<button class="automatecoin4"><img src="10.png"></button>');
-                }
-                if (coin.isused === false) {
-                    automatecoin4.remove();
-                    coin4.insertAdjacentHTML("afterbegin", '<button class="automatecoin4"><img src="10b.png"></button>');
-                }
-            }
-
-            return tr;
-        }
-        // Получение всех пользователей
-        async function GetItems() {
-            // отправляет запрос и получаем ответ
-            const response = await fetch("/api/items", {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            // если запрос прошел нормально
-            if (response.ok === true) {
-                // получаем данные
-                const items = await response.json();
-                let rows = document.querySelector('.tbody1');
-                items.forEach(item => {
-                    // добавляем полученные элементы в таблицу
-                    rows.append(row(item));
-                });
-            }
-        }
-        // Получение одного пользователя
-        async function GetItem(id) {
-            const response = await fetch("/api/items/" + id, {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-                const item = await response.json();
-                const form = document.forms["itemsForm"];
-                form.elements["id"].value = item.id;
-                form.elements["name"].value = item.name;
-                form.elements["code"].value = item.code;
-                form.elements["cost"].value = item.cost;
-                form.elements["quantity"].value = item.quantity;
-            }
-        }
-        // Добавление пользователя
-        async function CreateItem(itemName, itemCode, itemCost, itemQuantity) {
-
-            const response = await fetch("api/items", {
-                method: "POST",
-                headers: { "Accept": "application/json", "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: itemName,
-                    code: parseInt(itemCode, 10),
-                    cost: parseInt(itemCost, 10),
-                    quantity: parseInt(itemQuantity, 10)
-                })
-            });
-            if (response.ok === true) {
-                const item = await response.json();
-                reset();
-                document.querySelector('.tbody1').append(row(item));
-            }
-        }
-        // Изменение пользователя
-        async function EditItem(itemId, itemName, itemCode, itemCost, itemQuantity) {
-            const response = await fetch("api/items", {
-                method: "PUT",
-                headers: { "Accept": "application/json", "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    id: parseInt(itemId, 10),
-                    name: itemName,
-                    code: parseInt(itemCode, 10),
-                    cost: parseInt(itemCost, 10),
-                    quantity: parseInt(itemQuantity, 10)
-                })
-            });
-            if (response.ok === true) {
-                const item = await response.json();
-                reset();
-                document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
-            }
-        }
-        // Удаление пользователя
-        async function DeleteItem(id) {
-            const response = await fetch("/api/items/" + id, {
-                method: "DELETE",
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-                const item = await response.json();
-                document.querySelector("tr[data-rowid='" + item.id + "']").remove();
-            }
-        }
-
-        // сброс формы
-        function reset() {
-            const form = document.forms["itemsForm"];
-            form.reset();
-            form.elements["id"].value = 0;
-        }
-        // создание строки для таблицы
-        function row(item) {
-
-            const tr = document.createElement("tr");
-            tr.setAttribute("data-rowid", item.id);
-
-            const idTd = document.createElement("td");
-            idTd.append(item.id);
-            tr.append(idTd);
-
-            const nameTd = document.createElement("td");
-            nameTd.append(item.name);
-            tr.append(nameTd);
-
-            const codeTd = document.createElement("td");
-            codeTd.append(item.code);
-            tr.append(codeTd);
-
-            const costTd = document.createElement("td");
-            costTd.append(item.cost);
-            tr.append(costTd);
-
-            const quantityTd = document.createElement("td");
-            quantityTd.append(item.quantity);
-            tr.append(quantityTd);
-
-            const linksTd = document.createElement("td");
-
-            const editLink = document.createElement("a");
-            editLink.setAttribute("data-id", item.id);
-            editLink.setAttribute("style", "cursor:pointer;padding:15px;");
-            editLink.append("Изменить");
-            editLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                GetItem(item.id);
-            });
-            linksTd.append(editLink);
-
-            const removeLink = document.createElement("a");
-            removeLink.setAttribute("data-id", item.id);
-            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
-            removeLink.append("Удалить");
-            removeLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                DeleteItem(item.id);
-            });
-
-            linksTd.append(removeLink);
-            tr.appendChild(linksTd);
-
-            return tr;
-        }
-        // сброс значений формы
-        document.getElementById("reset").click(function (e) {
-
-            e.preventDefault();
+    }
+    async function EditCoin(coinId, coinName, coinCost, coinIsused) {
+        const response = await fetch("api/coins", {
+            method: "PUT",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: parseInt(coinId, 10),
+                name: coinName,
+                cost: parseInt(coinCost, 10),
+                isused: Boolean(coinIsused)
+            })
+        });
+        if (response.ok === true) {
+            const coin = await response.json();
             reset();
-        })
+            coinchange(coin);
+        }
+    }
+    function coinchange(coin) {
+        if (coin.name === '1') {
+            if (coin.isUsed === true) {
+                document.querySelector('.automatecoinimg1').src = '1.png';
+                coin1 = true;
+            } else {
+                document.querySelector('.automatecoinimg1').src = '1b.png';
+                coin1 = false;
+            }
+        }
+        if (coin.name === '2') {
+            if (coin.isUsed === true) {
+                document.querySelector('.automatecoinimg2').src = '2.png';
+                coin2 = true;
+            } else {
+                document.querySelector('.automatecoinimg2').src = '2b.png';
+                coin2=false;
+            }
+        }
+        if (coin.name === '5') {
+            if (coin.isUsed === true) {
+                document.querySelector('.automatecoinimg3').src = '5.png';
+                coin3 = true;
+            } else {
+                document.querySelector('.automatecoinimg3').src = '5b.png';
+                coin3 = false;
+            }
+        }
+        if (coin.name === '10') {
+            if (coin.isUsed === true) {
+                document.querySelector('.automatecoinimg4').src = '10.png';
+                coin4 = false;
+            } else {
+                document.querySelector('.automatecoinimg4').src = '10b.png';
+                coin4 = false;
+            }
+        }
 
-        // отправка формы
-        document.forms["itemsForm"].addEventListener("submit", e => {
-            e.preventDefault();
+    }
+
+
+    // Получение всех пользователей
+    async function GetItems() {
+        // отправляет запрос и получаем ответ
+        const response = await fetch("/api/items", {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+        });
+        // если запрос прошел нормально
+        if (response.ok === true) {
+            // получаем данные
+            const items = await response.json();
+            let rows = document.querySelector('.tbody1');
+            items.forEach(item => {
+                // добавляем полученные элементы в таблицу
+                rows.append(row(item));
+            });
+        }
+    }
+    // Получение одного пользователя
+    async function GetItem(id) {
+        const response = await fetch("/api/items/" + id, {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+        });
+        if (response.ok === true) {
+            const item = await response.json();
             const form = document.forms["itemsForm"];
-            const id = form.elements["id"].value;
-            const name = form.elements["name"].value;
-            const code = form.elements["code"].value;
-            const cost = form.elements["cost"].value;
-            const quantity = form.elements["quantity"].value;
-            if (id == 0)
-                CreateItem(name, code, cost, quantity);
-            else
-                EditItem(id, name, code, cost, quantity);
+            form.elements["id"].value = item.id;
+            form.elements["name"].value = item.name;
+            form.elements["code"].value = item.code;
+            form.elements["cost"].value = item.cost;
+            form.elements["quantity"].value = item.quantity;
+        }
+    }
+    // Добавление пользователя
+    async function CreateItem(itemName, itemCode, itemCost, itemQuantity) {
+
+        const response = await fetch("api/items", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: itemName,
+                code: parseInt(itemCode, 10),
+                cost: parseInt(itemCost, 10),
+                quantity: parseInt(itemQuantity, 10)
+            })
+        });
+        if (response.ok === true) {
+            const item = await response.json();
+            reset();
+            document.querySelector('.tbody1').append(row(item));
+        }
+    }
+    // Изменение пользователя
+    async function EditItem(itemId, itemName, itemCode, itemCost, itemQuantity) {
+        const response = await fetch("api/items", {
+            method: "PUT",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: parseInt(itemId, 10),
+                name: itemName,
+                code: parseInt(itemCode, 10),
+                cost: parseInt(itemCost, 10),
+                quantity: parseInt(itemQuantity, 10)
+            })
+        });
+        if (response.ok === true) {
+            const item = await response.json();
+            reset();
+            document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
+        }
+    }
+    // Удаление пользователя
+    async function DeleteItem(id) {
+        const response = await fetch("/api/items/" + id, {
+            method: "DELETE",
+            headers: { "Accept": "application/json" }
+        });
+        if (response.ok === true) {
+            const item = await response.json();
+            document.querySelector("tr[data-rowid='" + item.id + "']").remove();
+        }
+    }
+
+    // сброс формы
+    function reset() {
+        const form = document.forms["itemsForm"];
+        form.reset();
+        form.elements["id"].value = 0;
+    }
+    // создание строки для таблицы
+    function row(item) {
+
+        const tr = document.createElement("tr");
+        tr.setAttribute("data-rowid", item.id);
+
+        const idTd = document.createElement("td");
+        idTd.append(item.id);
+        tr.append(idTd);
+
+        const nameTd = document.createElement("td");
+        nameTd.append(item.name);
+        tr.append(nameTd);
+
+        const codeTd = document.createElement("td");
+        codeTd.append(item.code);
+        tr.append(codeTd);
+
+        const costTd = document.createElement("td");
+        costTd.append(item.cost);
+        tr.append(costTd);
+
+        const quantityTd = document.createElement("td");
+        quantityTd.append(item.quantity);
+        tr.append(quantityTd);
+
+        const linksTd = document.createElement("td");
+
+        const editLink = document.createElement("a");
+        editLink.setAttribute("data-id", item.id);
+        editLink.setAttribute("style", "cursor:pointer;padding:15px;");
+        editLink.append("Изменить");
+        editLink.addEventListener("click", e => {
+
+            e.preventDefault();
+            GetItem(item.id);
+        });
+        linksTd.append(editLink);
+
+        const removeLink = document.createElement("a");
+        removeLink.setAttribute("data-id", item.id);
+        removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
+        removeLink.append("Удалить");
+        removeLink.addEventListener("click", e => {
+
+            e.preventDefault();
+            DeleteItem(item.id);
         });
 
-        // загрузка пользователей
-        GetItems();
-    </script>
+        linksTd.append(removeLink);
+        tr.appendChild(linksTd);
+
+        return tr;
+    }
+    // сброс значений формы
+    document.getElementById("reset").click(function (e) {
+
+        e.preventDefault();
+        reset();
+    })
+
+    // отправка формы
+    document.forms["itemsForm"].addEventListener("submit", e => {
+        e.preventDefault();
+        const form = document.forms["itemsForm"];
+        const id = form.elements["id"].value;
+        const name = form.elements["name"].value;
+        const code = form.elements["code"].value;
+        const cost = form.elements["cost"].value;
+        const quantity = form.elements["quantity"].value;
+        if (id == 0)
+            CreateItem(name, code, cost, quantity);
+        else
+            EditItem(id, name, code, cost, quantity);
+    });
+
+    // загрузка пользователей
+    GetItems();
+</script>
 </body>
 </html>
