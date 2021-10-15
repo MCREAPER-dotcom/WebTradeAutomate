@@ -15,6 +15,7 @@ namespace WebTradeAutomate.Controllers
    [Route("api/[controller]")]
    public class ItemsController : ControllerBase
    {
+
       ItemsContext db;
       public ItemsController(ItemsContext context)
       {
@@ -26,6 +27,7 @@ namespace WebTradeAutomate.Controllers
             db.SaveChanges();
          }
       }
+      
       /// <summary>
       /// обработка запроса Get
       /// </summary>

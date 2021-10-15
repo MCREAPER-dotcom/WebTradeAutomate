@@ -19,6 +19,12 @@ namespace WebTradeAutomate
             "Trusted_Connection=True;";
          // устанавливаем контекст данных
          services.AddDbContext<CoinsContext>(options => options.UseSqlServer(coin));
+         string baselogicbd= "Server=(localdb)\\mssqllocaldb;" +
+                       "Database=baselogicbd;" +
+                       "Trusted_Connection=True;";
+         // устанавливаем контекст данных
+         services.AddDbContext<BaseLogicContext>(options => options.UseSqlServer(baselogicbd));
+
          services.AddControllers(); // используем контроллеры без представлений
       }
 
