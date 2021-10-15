@@ -104,8 +104,8 @@
             EditCoin(4, '10', 10, true);
 
     }
-    
-    // Получение всех пользователей
+
+    //получение данных о монетах
     async function GetCoins() {
         // отправляет запрос и получаем ответ
         const response = await fetch("/api/Coins", {
@@ -179,7 +179,7 @@
     }
 
 
-    // Получение всех пользователей
+    // Получение всех товаров
     async function GetItems() {
         // отправляет запрос и получаем ответ
         const response = await fetch("/api/items", {
@@ -197,7 +197,7 @@
             });
         }
     }
-    // Получение одного пользователя
+    // Получение одного товара
     async function GetItem(id) {
         const response = await fetch("/api/items/" + id, {
             method: "GET",
@@ -213,7 +213,7 @@
             form.elements["quantity"].value = item.quantity;
         }
     }
-    // Добавление пользователя
+    // Добавление товаров
     async function CreateItem(itemName, itemCode, itemCost, itemQuantity) {
 
         const response = await fetch("api/items", {
@@ -232,7 +232,7 @@
             document.querySelector('.tbody1').append(row(item));
         }
     }
-    // Изменение пользователя
+    // Изменение товара
     async function EditItem(itemId, itemName, itemCode, itemCost, itemQuantity) {
         const response = await fetch("api/items", {
             method: "PUT",
@@ -251,7 +251,7 @@
             document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
         }
     }
-    // Удаление пользователя
+    // Удаление товара
     async function DeleteItem(id) {
         const response = await fetch("/api/items/" + id, {
             method: "DELETE",
@@ -345,7 +345,7 @@
             EditItem(id, name, code, cost, quantity);
     });
 
-    // загрузка пользователей
+    // загрузка товаров
     GetItems();
 </script>
 </body>

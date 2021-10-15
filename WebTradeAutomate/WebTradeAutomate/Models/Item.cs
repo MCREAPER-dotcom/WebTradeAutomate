@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebTradeAutomate.Models
 {
+   /// <summary>
+   /// класс представления товара
+   /// </summary>
    public class Item
    {
       public int Id { get; set; }

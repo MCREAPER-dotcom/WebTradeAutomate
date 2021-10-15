@@ -240,7 +240,7 @@
             }
         }
 
-        // Получение всех пользователей
+        // Получение всех товаров
         async function GetItems() {
             // отправляет запрос и получаем ответ
             const response = await fetch("/api/items", {
@@ -362,7 +362,7 @@
                 document.querySelector("tr[data-rowid='" + item.id + "']").replaceWith(row(item));
             }
         }
-        // загрузка пользователей
+        // загрузка товаров
         GetItems();
     </script>
 </body>

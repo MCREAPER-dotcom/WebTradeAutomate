@@ -8,6 +8,9 @@ using WebTradeAutomate.Models;
 
 namespace WebTradeAutomate.Controllers
 {
+   /// <summary>
+   /// контроллер товаров отвечающий за сообщение с сайтом
+   /// </summary>
    [ApiController]
    [Route("api/[controller]")]
    public class ItemsController : ControllerBase
@@ -23,14 +26,20 @@ namespace WebTradeAutomate.Controllers
             db.SaveChanges();
          }
       }
-
+      /// <summary>
+      /// обработка запроса Get
+      /// </summary>
+      /// <returns></returns>
       [HttpGet]
       public async Task<ActionResult<IEnumerable<Item>>> Get()
       {
          return await db.Items.ToListAsync();
       }
-
-      // GET api/users/5
+      /// <summary>
+      /// обработка запроса Get(id)
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpGet("{id}")]
       public async Task<ActionResult<Item>> Get(int id)
       {
@@ -45,7 +54,11 @@ namespace WebTradeAutomate.Controllers
 
 
 
-      // POST api/users
+      /// <summary>
+      /// обработка запроса POST
+      /// </summary>
+      /// <param name="item"></param>
+      /// <returns></returns>
       [HttpPost]
       public async Task<ActionResult<Item>> Post(Item item)
       {
@@ -59,7 +72,11 @@ namespace WebTradeAutomate.Controllers
          return Ok(item);
       }
 
-      // PUT api/users/
+      /// <summary>
+      /// обработка запроса PUT
+      /// </summary>
+      /// <param name="item"></param>
+      /// <returns></returns>
       [HttpPut]
       public async Task<ActionResult<Item>> Put(Item item)
       {
@@ -77,7 +94,11 @@ namespace WebTradeAutomate.Controllers
          return Ok(item);
       }
 
-      // DELETE api/users/5
+      /// <summary>
+      /// обработка запроса  DELETE(id)
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id}")]
       public async Task<ActionResult<Item>> Delete(int id)
       {

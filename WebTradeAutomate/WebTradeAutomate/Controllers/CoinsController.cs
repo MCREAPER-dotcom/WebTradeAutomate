@@ -32,7 +32,11 @@ namespace WebTradeAutomate.Controllers
          return await db.Coins.ToListAsync();
       }
 
-      // GET api/users/5
+      /// <summary>
+      /// обработка запроса Get(id)
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpGet("{id}")]
       public async Task<ActionResult<Coin>> Get(int id)
       {
@@ -47,7 +51,11 @@ namespace WebTradeAutomate.Controllers
 
 
 
-      // POST api/users
+      /// <summary>
+      /// обработка запроса PUT
+      /// </summary>
+      /// <param name="coin"></param>
+      /// <returns></returns>
       [HttpPost]
       public async Task<ActionResult<Coin>> Post(Coin coin)
       {
@@ -60,8 +68,11 @@ namespace WebTradeAutomate.Controllers
          await db.SaveChangesAsync();
          return Ok(coin);
       }
-
-      // PUT api/users/
+      /// <summary>
+      /// обработка запроса PUT
+      /// </summary>
+      /// <param name="coin"></param>
+      /// <returns></returns>
       [HttpPut]
       public async Task<ActionResult<Coin>> Put(Coin coin)
       {
@@ -79,7 +90,11 @@ namespace WebTradeAutomate.Controllers
          return Ok(coin);
       }
 
-      // DELETE api/users/5
+      /// <summary>
+      /// обработка запроса  DELETE(id)
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id}")]
       public async Task<ActionResult<Coin>> Delete(int id)
       {
