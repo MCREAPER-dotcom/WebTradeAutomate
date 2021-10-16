@@ -14,9 +14,9 @@ namespace WebTradeAutomate.Controllers
       /// <summary>
       /// в дальнейшем можно переделать эту базу для информации на дисплее автомата каждого пользователя, если потребуется
       /// </summary>
-      private BaseLogicContext db;
+      private DataBaseContext db;
 
-      public BaseLogicController(BaseLogicContext context)
+      public BaseLogicController(DataBaseContext context)
       {
          db = context;
          if (!db.BaseLogics.Any())

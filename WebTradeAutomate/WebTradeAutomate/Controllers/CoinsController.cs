@@ -15,8 +15,8 @@ namespace WebTradeAutomate.Controllers
       /// <summary>
       /// база денег, в случае необходимости можно будет вводить другую валюту и менять стоимость валюты
       /// </summary>
-      CoinsContext db;
-      public CoinsController(CoinsContext context)
+      DataBaseContext db;
+      public CoinsController(DataBaseContext context)
       {
          db = context;
          if (!db.Coins.Any())

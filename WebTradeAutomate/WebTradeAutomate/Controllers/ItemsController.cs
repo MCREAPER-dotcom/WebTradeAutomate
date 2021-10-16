@@ -18,8 +18,8 @@ namespace WebTradeAutomate.Controllers
       /// <summary>
       /// база напитков
       /// </summary>
-      ItemsContext db;
-      public ItemsController(ItemsContext context)
+      DataBaseContext db;
+      public ItemsController(DataBaseContext context)
       {
          db = context;
          if (!db.Items.Any())
