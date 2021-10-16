@@ -86,44 +86,22 @@
         GetCoins();
         GetItemsName();
         GetCoinName();
-        let coin1 = 0;
-        let coin2 = 0;
-        let coin3 = 0;
-        let coin4 = 0;
 
         let itemsName = document.querySelector('.itemsName');
         let itemsCost = document.querySelector('.itemsCost');
-        let Cost = 0;
-
-        function CheckCost() {
-
-            itemsCost.textContent = Cost;
-            if (Number(itemsCost.textContent) > 999) {
-                itemsCost.textContent = '000';
-                Cost = 0;
-            }
-        }
         
 
         document.querySelector('.automatecoin1').onclick = function () {
-            coin1 = coin1 + 1;
-            Cost = Cost + 1;
-            CheckCost();
+            putcoin(1);
         }
         document.querySelector('.automatecoin2').onclick = function () {
-            coin2 = coin2 + 1;
-            Cost = Cost + 2;
-            CheckCost();
+            putcoin(2);
         }
         document.querySelector('.automatecoin3').onclick = function () {
-            coin3 = coin3 + 1;
-            Cost = Cost + 5;
-            CheckCost();
+            putcoin(5);
         }
         document.querySelector('.automatecoin4').onclick = function () {
-            coin4 = coin4 + 1;
-            Cost = Cost + 10;
-            CheckCost();
+            putcoin(10);
         }
         document.querySelector('.automatebutton1').onclick = function () {
 
@@ -175,14 +153,25 @@
 
         }
         document.querySelector('.automatebuttonC').onclick = function () {
-            alert("Сдача :" + "\n 10: " + coin4 + "\n 5: " + coin3 + "\n 2: " + coin2 + "\n 1: " + coin1);
-            coin1 = coin2 = coin3 = coin4 = 0;
-            Cost = 0;
-
+            deliveryofmoney();
         }
         document.querySelector('.automatebuttonB').onclick = function () {
 
             buyitem();
+        }
+        async function deliveryofmoney() {
+            const response = await fetch("/api/baselogic/deliveryofmoney",
+                {
+                    method: "PUT",
+                    headers: { "Accept": "application/json", "Content-Type": "application/json" }
+                });
+            if (response.ok) {
+                const money = await response.json();
+
+                itemsName.textContent = money.itemName;
+                itemsCost.textContent = money.coinSumm;
+                alert("Сдача :" + "\n 10: " + money.coinCount4 + "\n 5: " + money.coinCount3 + "\n 2: " + money.coinCount2 + "\n 1: " + money.coinCount1);
+            }
         }
         async function GetItemsName() {
             const response = await fetch("/api/baselogic/getitem", {
@@ -213,7 +202,7 @@
                 });
             if (response.ok) {
                 const cost = await response.json();
-                itemsCost.textContent = cost;
+                itemsCost.textContent = cost.coinSumm;
             }
         }
         async function GetCoinName() {
@@ -224,6 +213,7 @@
             if (response.ok === true) {
                 const coin = await response.json();
                 itemsCost.textContent = coin.coinSumm;
+                return coin.coinSumm;
             }
         }
 
@@ -242,11 +232,9 @@
                     // добавляем полученные элементы в таблицу
                     if (parseInt(item.code, 10) === parseInt(itemsName.textContent, 10)) {
                         if (parseInt(item.quantity, 10) >= 1) {
-                            if (parseInt(item.cost, 10) <= parseInt(Cost, 10) ) {
+                            if (parseInt(item.cost, 10) <= parseInt(itemsCost.textContent, 10) ) {
                                 EditItem(item.id, item.name, item.code, item.cost, item.quantity - 1);
                                 MathCoin(item.cost);
-                                Cost = Cost - item.cost;
-                                CheckCost();
                             }
                             else {
                                 alert("Ошибка : недостаточно денег");
@@ -259,27 +247,17 @@
                 });
             }
         }
-        
-        function MathCoin(itemCost) {
-            var temp = itemCost;
-            if (temp  >= 10) {
-                temp = itemCost % 10;
-                coin4 = coin4 - (itemCost - temp) / 10;
-
-            }
-            if (temp  >= 5) {
-                coin3 = coin3 - (temp - (temp % 5)) / 5;
-                temp = temp % 5;
-            }
-            if (temp  >= 2) {
-                coin2 = coin2 - (temp - (temp % 2)) / 2;
-                temp = temp % 2;
-            }
-            if (temp  >= 1) {
-                coin1 = coin1 - temp;
+        async function MathCoin(coin) {
+            const response = await fetch("/api/baselogic/putmathcoin/" + coin,
+                {
+                    method: "PUT",
+                    headers: { "Accept": "application/json", "Content-Type": "application/json" }
+                });
+            if (response.ok) {
+                const cost = await response.json();
+                itemsCost.textContent = cost.coinSumm;
             }
         }
-
         // Получение всех товаров
         async function GetItems() {
             // отправляет запрос и получаем ответ

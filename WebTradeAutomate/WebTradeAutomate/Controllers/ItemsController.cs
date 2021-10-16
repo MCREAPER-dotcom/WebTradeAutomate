@@ -9,13 +9,15 @@ using WebTradeAutomate.Models;
 namespace WebTradeAutomate.Controllers
 {
    /// <summary>
-   /// контроллер товаров отвечающий за сообщение с сайтом
+   /// контроллер товаров отвечающий за работу базы товаров
    /// </summary>
    [ApiController]
    [Route("api/[controller]")]
    public class ItemsController : ControllerBase
    {
-
+      /// <summary>
+      /// база напитков
+      /// </summary>
       ItemsContext db;
       public ItemsController(ItemsContext context)
       {

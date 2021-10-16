@@ -11,6 +11,9 @@ namespace WebTradeAutomate.Controllers
    [Route("api/[controller]")]
    public class BaseLogicController : ControllerBase
    {
+      /// <summary>
+      /// в дальнейшем можно переделать эту базу для информации на дисплее автомата каждого пользователя, если потребуется
+      /// </summary>
       private BaseLogicContext db;
 
       public BaseLogicController(BaseLogicContext context)
@@ -22,7 +25,10 @@ namespace WebTradeAutomate.Controllers
             db.SaveChanges();
          }
       }
-
+      /// <summary>
+      /// получение общего номера напитка
+      /// </summary>
+      /// <returns></returns>
       [HttpGet("getitem")]
       public ActionResult<string> GetItem()
       {
@@ -33,7 +39,11 @@ namespace WebTradeAutomate.Controllers
          }
          return Ok(bl);
       }
-
+      /// <summary>
+      /// добавление номера напитка
+      /// </summary>
+      /// <param name="item"></param>
+      /// <returns></returns>
       [HttpPut("putitem/{item}")]
       public async Task<ActionResult<string>> PutItem(string item)
       {
@@ -55,20 +65,36 @@ namespace WebTradeAutomate.Controllers
          await db.SaveChangesAsync();
          return Ok(bl);
       }
+      /// <summary>
+      /// добавление монет к общей сумме
+      /// </summary>
+      /// <param name="cost"></param>
+      /// <returns></returns>
       [HttpPut("putcoin/{cost}")]
-      public async Task<ActionResult<string>> PutItem(int cost)
+      public async Task<ActionResult<string>> PutCoin(int cost)
       {
          BaseLogic bl = db.BaseLogics.First(x => x.Id == 1);
 
          if (cost == 1)
+         {
             bl.CoinCount1++;
+            bl.CoinSumm += cost;
+         }
          if (cost == 2)
+         {
             bl.CoinCount2++;
+            bl.CoinSumm += cost;
+         }
          if (cost == 5)
+         {
             bl.CoinCount3++;
+            bl.CoinSumm += cost;
+         }
          if (cost == 10)
+         {
             bl.CoinCount4++;
-         bl.CoinSumm += cost;
+            bl.CoinSumm += cost;
+         }
          if (bl.CoinSumm == 0)
          {
             bl.CoinCount1 = bl.CoinCount2 = bl.CoinCount3 = bl.CoinCount4 = 0;
@@ -78,22 +104,72 @@ namespace WebTradeAutomate.Controllers
          await db.SaveChangesAsync();
          return Ok(bl);
       }
-      [HttpPut("takecoin")]
-      public async Task<ActionResult<string>>TakeItem()
+
+      /// <summary>
+      /// метод отвечающий за выдачу сдачи
+      /// </summary>
+      /// <returns></returns>
+
+      [HttpPut("deliveryofmoney")]
+      public async Task<ActionResult<string>>DeliveryOfMoney()
       {
          BaseLogic bl = db.BaseLogics.First(x => x.Id == 1);
+
+         bl.ItemName = "000";
+         bl.CoinSumm = 0;
+
+         db.Update(bl);
+         await db.SaveChangesAsync();
+         return Ok(bl);
+      }
+      /// <summary>
+      /// метод отвечающий за подсчет сдачи
+      /// </summary>
+      /// <param name="cost"></param>
+      /// <returns></returns>
+      [HttpPut("putmathcoin/{cost}")]
+      public async Task<ActionResult<string>> PutMathCoin(int cost)
+      {
+         BaseLogic bl = db.BaseLogics.First(x => x.Id == 1);
+
          if (bl.CoinSumm == 0)
          {
             bl.CoinCount1 = bl.CoinCount2 = bl.CoinCount3 = bl.CoinCount4 = 0;
          }
 
-         bl.CoinSumm = 0;
+         var temp = cost;
+         if (temp >= 10)
+         {
+            temp = cost % 10;
+            bl.CoinCount4 = bl.CoinCount4 - (cost- temp) / 10;
+
+         }
+         if (temp >= 5)
+         {
+            bl.CoinCount3 = bl.CoinCount3 - (temp - (temp % 5)) / 5;
+            temp = temp % 5;
+         }
+         if (temp >= 2)
+         {
+            bl.CoinCount2 = bl.CoinCount2 - (temp - (temp % 2)) / 2;
+            temp = temp % 2;
+         }
+         if (temp >= 1)
+         {
+            bl.CoinCount1 = bl.CoinCount1 - temp;
+         }
+
+         bl.CoinSumm = bl.CoinSumm - cost;
          db.Update(bl);
          await db.SaveChangesAsync();
          return Ok(bl);
       }
+      /// <summary>
+      /// получение информации о балансе
+      /// </summary>
+      /// <returns></returns>
       [HttpGet("getcoin")]
-      public ActionResult<string> GetCoin()
+      public async Task<ActionResult<string>> GetCoin()
       {
          BaseLogic bl = db.BaseLogics.First(x => x.Id == 1);
          if (int.Parse(bl.ItemName) <= 0)
@@ -103,6 +179,8 @@ namespace WebTradeAutomate.Controllers
          if (bl.CoinSumm == 0)
          {
             bl.CoinCount1 = bl.CoinCount2 = bl.CoinCount3 = bl.CoinCount4 = 0;
+            db.Update(bl);
+            await db.SaveChangesAsync();
          }
 
          return Ok(bl);

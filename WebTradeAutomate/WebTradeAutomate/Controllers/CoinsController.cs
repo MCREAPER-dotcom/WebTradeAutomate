@@ -12,6 +12,9 @@ namespace WebTradeAutomate.Controllers
    [Route("api/[controller]")]
    public class CoinsController : ControllerBase
    {
+      /// <summary>
+      /// база денег, в случае необходимости можно будет вводить другую валюту и менять стоимость валюты
+      /// </summary>
       CoinsContext db;
       public CoinsController(CoinsContext context)
       {
@@ -52,7 +55,7 @@ namespace WebTradeAutomate.Controllers
 
 
       /// <summary>
-      /// обработка запроса PUT
+      /// обработка запроса POST
       /// </summary>
       /// <param name="coin"></param>
       /// <returns></returns>
